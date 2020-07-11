@@ -16,10 +16,9 @@ for x in range(len(uniquenameslist)): # search for the same key in the whole fil
         print("line.split()[0]: " , line.split()[0])
         print("x:", x)
         if line.split()[0] == uniquenameslist[x]:
-            print("hello2")
             results_dict[uniquenameslist[x]].append(line.split()[1])
     results_dict[uniquenameslist[x]].append(len(results_dict[uniquenameslist[x]]))
-    # i.e. last value is the count of monies received by the person
+    # i.e. last item in the list (dictionary's values) is the count of monies received by the person
 
 print(results_dict)
 
