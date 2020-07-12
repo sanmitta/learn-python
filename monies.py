@@ -1,34 +1,27 @@
-my_file = open('mydata.txt', 'r')
-file_lines = my_file.readlines()
-my_file.close()
-
-rawnamelist = []
-for line in file_lines:
-    rawnamelist.append(line.split()[0]) # read index o from each line to capture names
-uniquenameslist = list(set(rawnamelist)) # remove duplicates
+import requests
+import pprint
+r = requests.get('https://raw.githubusercontent.com/sanmitta/learn-python/master/mydata.txt')
 
 results_dict = {}
-results_dict = {key: [] for key in uniquenameslist} # initialize
+#results_dict = {key: [] for key in uniquenames} # initialize
 
-#print(results_dict) #this is fine
+for i in r.iter_lines():
+    name, monies = i.decode("utf-8").split()
+    if name not in results_dict:
+        results_dict[name] = [] # first will be counter
+    results_dict[name].append(monies)
+    
+for i in {k: v for k, v in sorted(results_dict.items(), key=lambda item: len(item[1]), reverse=True)}: #dictionary comprehension
+    print(i, len(results_dict[i]),sorted(results_dict[i], reverse=True)[:5])
 
-for x in range(len(uniquenameslist)): # search for the same key in the whole file
-    for line in file_lines:
-        #print("line.split()[0]: " , line.split()[0])
-        #print("x:", x)
-        if line.split()[0] == uniquenameslist[x]:
-            results_dict[uniquenameslist[x]].append(line.split()[1])
-    print(uniquenameslist[x], " - " , sorted(results_dict.get(uniquenameslist[x]), reverse=True))
+# for x in results_dict.values():
+#     x[1].sort(reverse=True)
+
+#print(results_dict)
+
+# print(name, " - " , sorted(results_dict.get(name), reverse=True))
 
 
-
-# results_dict[uniquenameslist[x]].append(len(results_dict[uniquenameslist[x]])) 
-# I don't need this as I can get length at any time
-# i.e. last item in the list (dictionary's values) is the count of monies received by the person
-
-# print(results_dict)
-
-# print(uniquenameslist)
 
 # I had to write a little python snippet at work today, and that gave me an idea of a small problem for this group:
 
