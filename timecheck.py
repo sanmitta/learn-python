@@ -7,12 +7,13 @@ def record_time(fn):
         t_start = time.time()
         result = fn(*args, **kwargs)
         t_end = time.time()
-        print((t_end - t_start) * 1000000000)
+        print((t_end - t_start) * 10000000)
         return result
     return timed
 
-@record_time
 def hello():
-    print('Hello SMX')
+    print(' Hello SMX ' * 100)
+
+hello = record_time(hello)
 
 hello()
