@@ -1,5 +1,4 @@
 import requests
-import pprint
 r = requests.get('https://raw.githubusercontent.com/sanmitta/learn-python/master/mydata.txt')
 
 results_dict = {}
